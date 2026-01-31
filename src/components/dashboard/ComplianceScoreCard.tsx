@@ -1,6 +1,6 @@
 "use client";
 
-import { TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ComplianceScoreCardProps {
@@ -8,6 +8,9 @@ interface ComplianceScoreCardProps {
   trend: "up" | "down" | "stable";
   compliantCount: number;
   totalJurisdictions: number;
+  atRiskCount: number;
+  nonCompliantCount: number;
+  onClick?: () => void;
 }
 
 export function ComplianceScoreCard({
@@ -15,6 +18,9 @@ export function ComplianceScoreCard({
   trend,
   compliantCount,
   totalJurisdictions,
+  atRiskCount,
+  nonCompliantCount,
+  onClick,
 }: ComplianceScoreCardProps) {
   const radius = 70;
   const circumference = 2 * Math.PI * radius;
@@ -29,19 +35,30 @@ export function ComplianceScoreCard({
   const TrendIcon = trend === "up" ? TrendingUp : trend === "down" ? TrendingDown : Minus;
 
   return (
-    <div className="card">
+    <div
+      className={cn(
+        "card group",
+        onClick && "card-interactive cursor-pointer"
+      )}
+      onClick={onClick}
+    >
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-foreground">Overall Compliance</h3>
-        <div
-          className={cn(
-            "flex items-center gap-1 text-sm font-medium",
-            trend === "up" && "text-success",
-            trend === "down" && "text-danger",
-            trend === "stable" && "text-muted"
+        <div className="flex items-center gap-2">
+          <div
+            className={cn(
+              "flex items-center gap-1 text-sm font-medium",
+              trend === "up" && "text-success",
+              trend === "down" && "text-danger",
+              trend === "stable" && "text-muted"
+            )}
+          >
+            <TrendIcon className="w-4 h-4" />
+            <span>{trend === "up" ? "+5%" : trend === "down" ? "-3%" : "0%"}</span>
+          </div>
+          {onClick && (
+            <ChevronRight className="w-4 h-4 text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
           )}
-        >
-          <TrendIcon className="w-4 h-4" />
-          <span>{trend === "up" ? "+5%" : trend === "down" ? "-3%" : "0%"}</span>
         </div>
       </div>
 
@@ -101,14 +118,14 @@ export function ComplianceScoreCard({
                 <div className="status-dot status-dot-warning" />
                 <span className="text-xs text-muted">At Risk</span>
               </div>
-              <span className="text-lg font-medium">2</span>
+              <span className="text-lg font-medium">{atRiskCount}</span>
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <div className="status-dot status-dot-danger" />
                 <span className="text-xs text-muted">Non-Compliant</span>
               </div>
-              <span className="text-lg font-medium">1</span>
+              <span className="text-lg font-medium">{nonCompliantCount}</span>
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import { useState } from "react";
 
 interface FilingCalendarProps {
   filingEvents: FilingEvent[];
+  onDayClick?: (date: Date, events: FilingEvent[]) => void;
 }
 
 const statusColors = {
@@ -16,7 +17,7 @@ const statusColors = {
   completed: "bg-success",
 };
 
-export function FilingCalendar({ filingEvents }: FilingCalendarProps) {
+export function FilingCalendar({ filingEvents, onDayClick }: FilingCalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const year = currentDate.getFullYear();
@@ -92,12 +93,19 @@ export function FilingCalendar({ filingEvents }: FilingCalendarProps) {
 
         {days.map((day, index) => {
           const events = day ? getEventsForDay(day) : [];
+          const handleDayClick = () => {
+            if (day && events.length > 0 && onDayClick) {
+              onDayClick(new Date(year, month, day), events);
+            }
+          };
           return (
             <div
               key={index}
+              onClick={handleDayClick}
               className={cn(
-                "min-h-[60px] p-1 rounded-lg border border-transparent",
-                day && "hover:border-border cursor-pointer",
+                "min-h-[60px] p-1 rounded-lg border border-transparent transition-all",
+                day && events.length > 0 && "hover:border-primary/50 cursor-pointer",
+                day && events.length === 0 && "hover:border-border cursor-default",
                 isToday(day as number) && "bg-primary/10 border-primary/30"
               )}
             >

@@ -1,17 +1,28 @@
 "use client";
 
 import { DollarSign, Receipt, Calendar } from "lucide-react";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, cn } from "@/lib/utils";
+
+export type MetricType = "liability" | "ytdCollected" | "upcomingFilings";
 
 interface MetricsRowProps {
   totalLiability: number;
   ytdCollected: number;
   upcomingFilings: number;
+  onMetricClick?: (metricType: MetricType) => void;
 }
 
-export function MetricsRow({ totalLiability, ytdCollected, upcomingFilings }: MetricsRowProps) {
-  const metrics = [
+export function MetricsRow({ totalLiability, ytdCollected, upcomingFilings, onMetricClick }: MetricsRowProps) {
+  const metrics: {
+    key: MetricType;
+    label: string;
+    value: string;
+    icon: typeof DollarSign;
+    subtext: string;
+    color: string;
+  }[] = [
     {
+      key: "liability",
       label: "Current Liability",
       value: formatCurrency(totalLiability),
       icon: DollarSign,
@@ -19,6 +30,7 @@ export function MetricsRow({ totalLiability, ytdCollected, upcomingFilings }: Me
       color: "text-danger",
     },
     {
+      key: "ytdCollected",
       label: "YTD Tax Collected",
       value: formatCurrency(ytdCollected),
       icon: Receipt,
@@ -26,6 +38,7 @@ export function MetricsRow({ totalLiability, ytdCollected, upcomingFilings }: Me
       color: "text-success",
     },
     {
+      key: "upcomingFilings",
       label: "Upcoming Filings",
       value: upcomingFilings.toString(),
       icon: Calendar,
@@ -37,7 +50,14 @@ export function MetricsRow({ totalLiability, ytdCollected, upcomingFilings }: Me
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {metrics.map((metric) => (
-        <div key={metric.label} className="card">
+        <div
+          key={metric.key}
+          onClick={() => onMetricClick?.(metric.key)}
+          className={cn(
+            "card",
+            onMetricClick && "card-interactive cursor-pointer"
+          )}
+        >
           <div className="flex items-start justify-between">
             <div>
               <p className="text-sm text-muted mb-1">{metric.label}</p>

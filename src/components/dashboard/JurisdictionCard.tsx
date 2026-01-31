@@ -1,8 +1,10 @@
 "use client";
 
-import { MapPin, Calendar, ArrowRight } from "lucide-react";
+import { Calendar, ArrowRight, Eye, Download, Bell, ExternalLink } from "lucide-react";
 import { Jurisdiction } from "@/types/compliance";
-import { formatCurrency, formatShortDate, getDaysUntil, cn } from "@/lib/utils";
+import { formatCurrency, getDaysUntil, cn } from "@/lib/utils";
+import { DropdownMenu, DropdownItem } from "@/components/ui/DropdownMenu";
+import { useToast } from "@/contexts/ToastContext";
 
 interface JurisdictionCardProps {
   jurisdiction: Jurisdiction;
@@ -51,6 +53,40 @@ export function JurisdictionCard({ jurisdiction, onClick }: JurisdictionCardProp
   const config = statusConfig[jurisdiction.status];
   const daysUntilFiling = getDaysUntil(jurisdiction.nextFilingDate);
   const isOverdue = daysUntilFiling < 0;
+  const { addToast } = useToast();
+
+  const dropdownItems: DropdownItem[] = [
+    {
+      id: "view",
+      label: "View Details",
+      icon: Eye,
+      onClick: () => onClick(),
+    },
+    {
+      id: "export",
+      label: "Export Data",
+      icon: Download,
+      onClick: () => {
+        addToast("success", `Exported data for ${jurisdiction.name}`);
+      },
+    },
+    {
+      id: "reminder",
+      label: "Set Reminder",
+      icon: Bell,
+      onClick: () => {
+        addToast("info", `Reminder set for ${jurisdiction.name} filing`);
+      },
+    },
+    {
+      id: "portal",
+      label: "Open Tax Portal",
+      icon: ExternalLink,
+      onClick: () => {
+        addToast("info", `Opening ${jurisdiction.name} tax portal...`);
+      },
+    },
+  ];
 
   return (
     <div className="card card-interactive group" onClick={onClick}>
@@ -62,7 +98,10 @@ export function JurisdictionCard({ jurisdiction, onClick }: JurisdictionCardProp
             <p className="text-xs text-muted">{typeLabels[jurisdiction.type]}</p>
           </div>
         </div>
-        <span className={cn("badge", config.badgeClass)}>{config.label}</span>
+        <div className="flex items-center gap-2">
+          <span className={cn("badge", config.badgeClass)}>{config.label}</span>
+          <DropdownMenu items={dropdownItems} />
+        </div>
       </div>
 
       <div className="space-y-3">

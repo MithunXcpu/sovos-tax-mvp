@@ -6,6 +6,7 @@ import { formatDate, cn } from "@/lib/utils";
 
 interface AlertsListProps {
   alerts: ComplianceAlert[];
+  onAlertClick?: (alert: ComplianceAlert) => void;
 }
 
 const severityConfig = {
@@ -29,7 +30,7 @@ const severityConfig = {
   },
 };
 
-export function AlertsList({ alerts }: AlertsListProps) {
+export function AlertsList({ alerts, onAlertClick }: AlertsListProps) {
   const sortedAlerts = [...alerts].sort((a, b) => {
     const severityOrder = { critical: 0, warning: 1, info: 2 };
     return severityOrder[a.severity] - severityOrder[b.severity];
@@ -57,6 +58,7 @@ export function AlertsList({ alerts }: AlertsListProps) {
           return (
             <div
               key={alert.id}
+              onClick={() => onAlertClick?.(alert)}
               className={cn(
                 "p-4 rounded-lg border transition-all cursor-pointer hover:border-primary/50",
                 config.bgColor,
