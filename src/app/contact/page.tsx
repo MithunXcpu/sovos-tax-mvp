@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Contact | Sovos Tax Compliance Cloud",
-  description: "Get in touch with the Sovos Tax Compliance team",
+  description: "Contact form for this independent demo prototype. Not an official Sovos product.",
 };
 
 export default function ContactPage() {

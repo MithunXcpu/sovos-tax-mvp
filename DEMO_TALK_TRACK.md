@@ -1,10 +1,12 @@
 # Sovos Tax Compliance Cloud - Demo Talk Track
 
+Independent demo/prototype for walkthroughs. Not an official Sovos product.
+
 ## Overview
-This is an interactive demo of the Sovos Tax Compliance Cloud MVP - a real-time tax compliance monitoring and management dashboard built for enterprise businesses operating across multiple jurisdictions.
+This is an interactive demo of a tax compliance dashboard prototype. The UI uses sample data. It is not a production system and it is not an official Sovos product.
 
 **Live Demo**: https://sovos-tax-mvp.vercel.app
-**Credentials**: `mithun` / `1234`
+**Credentials**: `demo@example.com` / `demo123`
 
 ---
 
@@ -12,17 +14,17 @@ This is an interactive demo of the Sovos Tax Compliance Cloud MVP - a real-time 
 
 ### 1. Login Experience (30 seconds)
 **Talk Track:**
-> "Welcome to Sovos Tax Compliance Cloud. This is our secure login portal. For this demo, I'll sign in with my credentials..."
+> "Welcome. This is a demo login for the prototype. I'll sign in with the sample account..."
 
 **Actions:**
-- Enter username: `mithun`
-- Enter password: `1234`
+- Enter email: `demo@example.com`
+- Enter password: `demo123`
 - Click Sign In
 
 **Key Points:**
 - Clean, professional dark theme
 - Custom animated logo with data flow visualization
-- Secure authentication with session persistence
+- Demo session stored in localStorage
 
 ---
 
@@ -146,7 +148,7 @@ This is an interactive demo of the Sovos Tax Compliance Cloud MVP - a real-time 
 
 ### 9. Closing (30 seconds)
 **Talk Track:**
-> "This is the Sovos Tax Compliance Cloud MVP. We've built a production-ready dashboard that gives businesses real-time visibility into their tax compliance across multiple jurisdictions, with AI-powered insights and automated certificate management."
+> "This is an independent prototype of a tax compliance dashboard. It uses sample data to show compliance status, filings, and a chat assistant. It is not an official Sovos product."
 
 **Actions:**
 - Click logout to return to login screen
@@ -155,8 +157,8 @@ This is an interactive demo of the Sovos Tax Compliance Cloud MVP - a real-time 
 **Key Points:**
 - Built with Next.js 16, React 19, TypeScript
 - Modern dark theme with smooth animations
-- AI integration with Claude
-- Enterprise-ready authentication
+- Optional Claude chat when an API key is set; otherwise canned replies
+- Demo sign-in only (hardcoded check, session in localStorage)
 
 ---
 

@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Sovos Tax Compliance Cloud",
-  description: "Real-time tax compliance monitoring and management",
+  description: "Independent demo of a tax compliance dashboard. Not an official Sovos product.",
 };
 
 export default function RootLayout({
