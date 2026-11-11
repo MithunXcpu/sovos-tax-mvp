@@ -11,6 +11,23 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+/** Public demo account. example.com is a reserved documentation domain. */
+const DEMO_EMAIL = "demo@example.com";
+const DEMO_PASSWORD = "demo123";
+
+/**
+ * Earlier walkthrough login. Still accepted so existing instructions keep working.
+ * The login screen and README advertise the example.com account above.
+ */
+const LEGACY_DEMO_USERNAME = "mithun";
+const LEGACY_DEMO_PASSWORD = "1234";
+
+function credentialsMatch(username: string, password: string): boolean {
+  if (username === DEMO_EMAIL && password === DEMO_PASSWORD) return true;
+  if (username === LEGACY_DEMO_USERNAME && password === LEGACY_DEMO_PASSWORD) return true;
+  return false;
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<string | null>(null);
@@ -27,8 +44,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = (username: string, password: string): boolean => {
-    // Simple hardcoded auth: mithun / 1234
-    if (username === "mithun" && password === "1234") {
+    // Client-side demo check only. Not a real identity provider.
+    if (credentialsMatch(username, password)) {
       setIsAuthenticated(true);
       setUser(username);
       localStorage.setItem("sovos_user", username);

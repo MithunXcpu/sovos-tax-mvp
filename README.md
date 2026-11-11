@@ -1,57 +1,68 @@
-# Sovos Tax Compliance Dashboard 📋
+# Tax Compliance Dashboard
 
-A comprehensive tax compliance dashboard with AI-powered insights, jurisdiction tracking, filing calendar, and reconciliation tools.
+Independent demo/prototype by Mithun Manjunatha, a Solutions Engineer. This is not an official Sovos product, and it is not affiliated with or endorsed by Sovos. Names and branding in the UI are there for the walkthrough only.
 
-## Features
+The app is a single-page dashboard of sample tax-compliance data. Sign-in is a hardcoded check in the browser. Nothing here files a return, connects to a tax engine, or stores customer data on a server.
 
-- **Compliance Score Card** - Overall compliance health at a glance
-- **Jurisdiction Grid** - Track compliance across all tax jurisdictions
-- **Filing Calendar** - Visual calendar of upcoming and past filings
-- **AI Insights** - AI-powered recommendations and alerts
-- **Tax Rate Lookup** - Quick lookup for tax rates by location
-- **Certificate Tracker** - Track exemption certificates
-- **Integration Status** - Monitor connected systems
-- **Reconciliation Card** - Track reconciliation status
-- **AI Chat Widget** - Get help and answers instantly
+## Demo login
 
-## Demo Credentials
+| Email | Password |
+| --- | --- |
+| demo@example.com | demo123 |
 
-| Role | Email | Password |
-|------|-------|----------|
-| Demo User | demo@sovos.com | demo123 |
+`example.com` is a reserved documentation domain. The password is for this local demo only.
 
-## Tech Stack
+## What you can click through
 
-- **Framework**: Next.js 16 with App Router
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Fonts**: Geist (optimized via next/font)
+After sign-in, the dashboard reads fixtures in `src/lib/mock-data.ts`:
 
-## Getting Started
+- Compliance score, liability, and filing counts
+- Six sample jurisdictions: California, Texas, New York, Florida, United Kingdom, and Germany
+- Filing calendar, with detail when you pick a day
+- Insight cards derived from that sample data
+- A static tax-rate lookup
+- A sample exemption-certificate list
+- Sample integration and reconciliation panels
+- Client-side export of the sample data (CSV or JSON)
+- A chat widget. If `ANTHROPIC_API_KEY` is set, replies come from Anthropic. If it is not set, the API route returns a short canned answer from the same sample context
+
+There is also a `/contact` page that posts the form to Formspree.
+
+A longer click-path for presenting the demo is in `DEMO_TALK_TRACK.md`.
+
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the dashboard.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Project Structure
+For live chat replies, copy `.env.example` to `.env.local` and set `ANTHROPIC_API_KEY`. The dashboard still loads without it.
+
+## Stack
+
+- Next.js 16 (App Router) and React 19
+- Tailwind CSS 4
+- Framer Motion and Lucide
+- Geist via `next/font`
+
+## Project structure
 
 ```
 src/
-├── app/              # Next.js app router pages
+├── app/              # App Router pages and the chat API route
 ├── components/
-│   ├── auth/         # Authentication components
-│   ├── chat/         # AI chat widget
-│   ├── dashboard/    # Dashboard components
-│   └── ui/           # Shared UI components
-├── contexts/         # React context providers
-├── lib/              # Utilities and mock data
-└── types/            # TypeScript type definitions
+│   ├── auth/         # Demo login screen
+│   ├── chat/         # Chat widget
+│   ├── dashboard/    # Dashboard panels
+│   └── ui/
+├── contexts/         # Auth and toast state
+├── lib/              # Sample data, export helpers
+└── types/
 ```
 
-## Deployment
+## Note
 
-Deployed on Vercel. Push to main for automatic deployment.
+This repository is an independent demo/prototype. It is not an official Sovos product.

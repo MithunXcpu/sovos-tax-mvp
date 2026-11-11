@@ -57,7 +57,7 @@ export function LoginPage() {
             {/* Username */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">
-                Username
+                Email
               </label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground-muted" />
@@ -65,7 +65,8 @@ export function LoginPage() {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter username"
+                  placeholder="demo@example.com"
+                  autoComplete="username"
                   className="w-full pl-11 pr-4 py-3 bg-surface border border-border rounded-xl text-foreground placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                   required
                 />
@@ -131,9 +132,12 @@ export function LoginPage() {
           </form>
 
           {/* Demo Credentials */}
-          <div className="mt-6 pt-6 border-t border-border">
+          <div className="mt-6 pt-6 border-t border-border space-y-2">
             <p className="text-center text-sm text-foreground-muted">
-              Demo credentials: <span className="text-primary font-mono">mithun</span> / <span className="text-primary font-mono">1234</span>
+              Demo login: <span className="text-primary font-mono">demo@example.com</span> / <span className="text-primary font-mono">demo123</span>
+            </p>
+            <p className="text-center text-xs text-foreground-muted">
+              Independent demo prototype. Not an official Sovos product.
             </p>
           </div>
         </div>
